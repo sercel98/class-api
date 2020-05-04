@@ -12,6 +12,9 @@
 
 ActiveRecord::Schema.define(version: 2020_05_03_013759) do
 
+  # These are extensions that must be enabled in order to support this database
+  enable_extension "plpgsql"
+
   create_table "groups", force: :cascade do |t|
     t.string "code", null: false
     t.string "name", null: false
