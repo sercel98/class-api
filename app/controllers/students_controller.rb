@@ -10,12 +10,12 @@ class StudentsController < ApplicationController
 
   # GET/teachers/:teacher_id/groups/group:id/students:id
   def show
-    json_response(@students)
+    json_response(@student)
   end
 
   # POST /teachers/:teacher_id/groups
   def create
-    @student.students.create!(student_params)
+    @group.students.create!(student_params)
     json_response(@student, :created)
   end
 
@@ -41,7 +41,7 @@ class StudentsController < ApplicationController
   end
 
   def set_student
-    @student = @group.find_by!(id: params[:id]) if @student
+    @student = @group.students.find_by!(id: params[:id]) if @group
   end
      
 end

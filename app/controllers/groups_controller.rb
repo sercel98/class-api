@@ -1,7 +1,7 @@
 class GroupsController < ApplicationController
 
     before_action :set_teacher
-    before_action :set_group, only: [:show, :update, :destroy]
+    before_action :set_teacher_group, only: [:show, :update, :destroy]
   
     # GET /teachers/:teacher_id/groups
     def index
@@ -10,13 +10,13 @@ class GroupsController < ApplicationController
   
     # GET /teachers/:teacher_id/groups:id
     def show
-      json_response(@groups)
+      json_response(@group)
     end
   
     # POST /teachers/:teacher_id/groups
     def create
-      @groups.groups.create!(group_params)
-      json_response(@groups, :created)
+      @teacher.groups.create!(group_params)
+      json_response(@teacher, :created)
     end
   
     # PUT  /teachers/:teacher_id/groups:id
@@ -35,14 +35,14 @@ class GroupsController < ApplicationController
     private
   
     def group_params
-      params.permit(:code, :name)
+      params.permit(:code, :name, :area)
     end
   
     def set_teacher
       @teacher = Teacher.find(params[:teacher_id])
     end
   
-    def set_group
-      @group = @teacher.groups.find_by!(id: params[:id]) if @group
+    def set_teacher_group
+      @group = @teacher.groups.find_by!(id: params[:id]) if @teacher
     end
 end
